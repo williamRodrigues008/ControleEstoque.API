@@ -1,4 +1,5 @@
 ﻿using ControleEstoque.API.Entities;
+using ControleEstoque.API.Enums;
 
 namespace ControleEstoque.API.Interfaces
 {
