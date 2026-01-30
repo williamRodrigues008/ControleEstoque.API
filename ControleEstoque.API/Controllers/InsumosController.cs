@@ -4,18 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace ControleEstoque.API.Controllers
 {
     [ApiController]
-
+    [Route("api/[controller]")]
     public class InsumosController : Controller
     {
-        public async Task<List<Insumos>> ListarInsumosAsync()
-        {
-            var insumos = new List<Insumos>();
-            return insumos;
+        [HttpGet("listarInsumos")]
+        public async Task<List<IActionResult>> ListarInsumosAsync()
+        {   
+            
         }
 
-        public async Task<List<Insumos>> BuscarInsumoPorIdAsync(int id)
+        public async Task<List<Insumo>> BuscarInsumoPorIdAsync(int id)
         {
-            return new List<Insumos>(); 
+            return new List<Insumo>(); 
         }
     }
 }
