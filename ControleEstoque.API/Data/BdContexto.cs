@@ -7,6 +7,6 @@ namespace ControleEstoque.API.Data
     {
         public BdContexto(DbContextOptions<DbContext> options) : base(options) { }
 
-        DbSet<Insumo> Insumos { get; set; }
+        public DbSet<Insumo> Insumos { get; set; }
     }
 }
