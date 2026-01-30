@@ -1,4 +1,6 @@
-﻿using ControleEstoque.API.Entities;
+﻿using ControleEstoque.API.Data;
+using ControleEstoque.API.Entities;
+using ControleEstoque.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleEstoque.API.Controllers
@@ -7,15 +9,32 @@ namespace ControleEstoque.API.Controllers
     [Route("api/[controller]")]
     public class InsumosController : Controller
     {
-        [HttpGet("listarInsumos")]
-        public async Task<List<IActionResult>> ListarInsumosAsync()
-        {   
-            
+        private readonly BdContexto _bdContexto;
+        private readonly IInsumos _iinsumos;
+
+        public InsumosController(BdContexto bdContexto, IInsumos iinsumos)
+        {
+            _bdContexto = bdContexto;
+            _iinsumos = iinsumos;
         }
 
-        public async Task<List<Insumo>> BuscarInsumoPorIdAsync(int id)
+        [HttpGet("listarInsumos")]
+        public async Task<IActionResult> ListarInsumosAsync()
         {
-            return new List<Insumo>(); 
+            var insumos = _iinsumos.BuscarInsumos();
+            if (insumos is not null)
+                return Ok(insumos);
+            else
+                return BadRequest("Ops! houve um erro na consulta por insumos.");
+        }
+
+        public Insumo BuscarInsumoPorIdAsync(int id)
+        {
+            var insumo = _iinsumos.BuscarInsumoPorId(id);
+            if (insumo is not null)
+                return insumo;
+            else
+                return new Insumo();
         }
     }
 }
