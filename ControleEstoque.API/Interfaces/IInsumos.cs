@@ -7,7 +7,7 @@ namespace ControleEstoque.API.Interfaces
     {
         public List<Insumo> BuscarInsumos();
         public Insumo BuscarInsumoPorId(int id);
-        public TipoRetornoEnum AdicionarInsumo(List<Insumo> insumos);
+        public TipoRetornoEnum AdicionarInsumo(Insumo insumos);
 
     }
 }
