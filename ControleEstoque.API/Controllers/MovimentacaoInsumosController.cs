@@ -7,5 +7,10 @@ namespace ControleEstoque.API.Controllers
     [ApiController]
     public class MovimentacaoInsumosController : ControllerBase
     {
+        [HttpGet("ListarMovimentacoes")]
+        public Task<IActionResult> ListarMovimentacoes()
+        {
+            
+        }
     }
 }
