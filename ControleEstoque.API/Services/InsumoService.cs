@@ -14,13 +14,11 @@ namespace ControleEstoque.API.Services
             this._bdContexto = bdContexto;
         }
 
-        public TipoRetornoEnum AdicionarInsumo(List<Insumo> insumos)
+        public TipoRetornoEnum AdicionarInsumo(Insumo insumo)
         {
-            if (insumos is not null)
+            if (insumo is not null)
             {
-                foreach (var insumo in insumos)
-                    _bdContexto.Insumos.Add(insumo);
-
+                _bdContexto.Insumos.Add(insumo);
                 if (_bdContexto.SaveChanges() > 1)
                     return TipoRetornoEnum.Sucesso;
                 else
