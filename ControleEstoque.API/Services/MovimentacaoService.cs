@@ -28,7 +28,21 @@ namespace ControleEstoque.API.Services
 
         public MovimentacaoInsumos BuscarMovimentacaoPorId(int id) => _bdContexto.MovimentacaoInsumos.SingleOrDefault(x => x.Id == id)!;
 
-        public MovimentacaoInsumos EditarMovimentacao(int id) => BuscarMovimentacaoPorId(id);
+        public bool EditarMovimentacao(MovimentacaoInsumos movimentacao)
+        {
+            if (movimentacao is null)
+                return false;
+
+            _bdContexto.MovimentacaoInsumos.Where(x => x.Id == movimentacao.Id).ExecuteUpdate(x =>
+            { 
+                x.SetProperty(m => m.ItensMovimentados, movimentacao.ItensMovimentados);
+                x.SetProperty(m => m.DataMovimentacao, movimentacao?.DataMovimentacao);
+                x.SetProperty(m => m.Local, movimentacao?.Local);
+                x.SetProperty(m => m.Solicitante, movimentacao?.Solicitante);
+                x.SetProperty(m => m.Responsavel, movimentacao?.Responsavel);
+            });
+            return _bdContexto.SaveChanges() > 0 ? true : false;
+        }
         public bool ExcluirMovimentacao(int id)
         {
             _bdContexto.MovimentacaoInsumos.Where(x => x.Id == id).ExecuteDelete();
