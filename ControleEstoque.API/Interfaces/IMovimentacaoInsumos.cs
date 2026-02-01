@@ -10,6 +10,6 @@ namespace ControleEstoque.API.Interfaces
         ItensMovimentados BuscarItemPorId(int id);
         bool AdicionarMovimentacaoInsumo(MovimentacaoInsumos movimentacao);
         bool ExcluirMovimentacao(int id);
-        MovimentacaoInsumos EditarMovimentacao(int id);
+        bool EditarMovimentacao(int id);
     }
 }
