@@ -63,7 +63,7 @@ namespace ControleEstoque.API.Controllers
         }
 
         [HttpPost("AdicionarMovimentacaoInsumo")]
-        public async Task<IActionResult> AdicionarMovimentacaoInsumo(MovimentacaoInsumos movimentacao)
+        public async Task<IActionResult> AdicionarMovimentacaoInsumo(Movimentacao movimentacao)
         {
             if (movimentacao is not null)
             {
@@ -86,7 +86,7 @@ namespace ControleEstoque.API.Controllers
         }
 
         [HttpPut("EditarMovimentacao")]
-        public async Task<IActionResult> EditarMovimentacao(MovimentacaoInsumos movimentacao)
+        public async Task<IActionResult> EditarMovimentacao(Movimentacao movimentacao)
         {
             if (_movimentacao.EditarMovimentacao(movimentacao))
             {
