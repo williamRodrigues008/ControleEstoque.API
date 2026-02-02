@@ -1,6 +1,6 @@
 ﻿namespace ControleEstoque.API.Entities
 {
-    public class ItensMovimentados
+    public class ItemMovimentado
     {
         public int Id { get; set; }
         public int IdMovimentacao { get; set; }
