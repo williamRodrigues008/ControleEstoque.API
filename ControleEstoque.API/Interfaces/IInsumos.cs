@@ -8,6 +8,8 @@ namespace ControleEstoque.API.Interfaces
         public List<Insumo> BuscarInsumos();
         public Insumo BuscarInsumoPorId(int id);
         public TipoRetornoEnum AdicionarInsumo(Insumo insumos);
+        bool EditarInsumo(Insumo insumo);
+        bool ExcluirInsumo(int id);
 
     }
 }
