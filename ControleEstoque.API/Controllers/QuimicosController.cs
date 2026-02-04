@@ -10,5 +10,9 @@ namespace ControleEstoque.API.Controllers
     {
         private readonly BdContexto _contexto;
 
+        public QuimicosController(BdContexto contexto)
+        {
+            _contexto = contexto;
+        }
     }
 }

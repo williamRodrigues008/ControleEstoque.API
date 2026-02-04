@@ -89,9 +89,9 @@ namespace ControleEstoque.API.Controllers
         public async Task<IActionResult> EditarMovimentacao(Movimentacao movimentacao)
         {
             if (_movimentacao.EditarMovimentacao(movimentacao))
-            {
-
-            }
+                return Ok("Movimentação salva com sucesso!");
+            else
+                return BadRequest("Ops! Houve um erro ao salvar Movimentação!");
         }
     }
 }
