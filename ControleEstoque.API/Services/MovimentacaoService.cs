@@ -19,7 +19,8 @@ namespace ControleEstoque.API.Services
             if (movimentacao is not null)
                 _bdContexto.MovimentacaoInsumo.Add(movimentacao);
 
-            return _bdContexto.SaveChanges() > 0 ? true : false;
+            _bdContexto.SaveChanges();
+            return _bdContexto.SaveChanges() >= 1 ? true : false;
         }
 
         public ItemMovimentado BuscarItemPorId(int id) => _bdContexto.ItensMovimentados.SingleOrDefault(x => x.IdMovimentacao == id)!;
@@ -39,12 +40,14 @@ namespace ControleEstoque.API.Services
                 x.SetProperty(m => m.Solicitante, movimentacao?.Solicitante);
                 x.SetProperty(m => m.Responsavel, movimentacao?.Responsavel);
             });
-            return _bdContexto.SaveChanges() > 0 ? true : false;
+            _bdContexto.SaveChanges();
+            return _bdContexto.SaveChanges() >= 1 ? true : false;
         }
         public bool ExcluirMovimentacao(int id)
         {
             _bdContexto.MovimentacaoInsumo.Where(x => x.Id == id).ExecuteDelete();
-            return _bdContexto.SaveChanges() > 0 ? true : false;
+            _bdContexto.SaveChanges();
+            return _bdContexto.SaveChanges() >= 1 ? true : false;
         }
 
         public List<ItemMovimentado> ListarItensMovimentados(int idMovimentacao) => _bdContexto.ItensMovimentados.Where(x => x.IdMovimentacao == idMovimentacao).ToList();

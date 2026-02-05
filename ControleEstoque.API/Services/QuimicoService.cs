@@ -19,7 +19,8 @@ namespace ControleEstoque.API.Services
             if (quimico is not null)
                 _bdContexto.Quimico.Add(quimico);
 
-            return _bdContexto.SaveChanges() > 0 ? true : false;
+            _bdContexto.SaveChanges();
+            return _bdContexto.SaveChanges() >= 1 ? true : false;
         }
 
         public Quimico BuscarQuimicoPorId(int id) => _bdContexto.Quimico.SingleOrDefault(q => q.Id == id)!;
@@ -35,13 +36,15 @@ namespace ControleEstoque.API.Services
                 i.SetProperty(i => i.Quantidade, quimico?.Quantidade);
                 i.SetProperty(i => i.Concentrado, quimico?.Concentrado);
             });
-            return _bdContexto.SaveChanges() > 0 ? true : false;
+            _bdContexto.SaveChanges();
+            return _bdContexto.SaveChanges() >= 1 ? true : false;
         }
 
         public bool ExcluirQuimico(int id)
         {
             _bdContexto.Quimico.Where(x => x.Id == id).ExecuteDelete();
-            return _bdContexto.SaveChanges() > 0 ? true : false;
+            _bdContexto.SaveChanges();
+            return _bdContexto.SaveChanges() >= 1 ? true : false;
         }
 
         public List<Quimico> ListarQuimicos()

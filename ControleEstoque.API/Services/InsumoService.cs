@@ -20,7 +20,8 @@ namespace ControleEstoque.API.Services
             if (insumo is not null)
             {
                 _bdContexto.Insumos.Add(insumo);
-                if (_bdContexto.SaveChanges() > 1)
+                _bdContexto.SaveChanges();
+                if (_bdContexto.SaveChanges() >= 1)
                     return TipoRetornoEnum.Sucesso;
                 else
                     return TipoRetornoEnum.Erro;
@@ -43,13 +44,15 @@ namespace ControleEstoque.API.Services
                 x.SetProperty(i => i.Quantidade, insumo?.Quantidade);
                 x.SetProperty(i => i.Unidade, insumo?.Unidade);
             });
-            return _bdContexto.SaveChanges() > 0 ? true : false;
+            _bdContexto.SaveChanges();
+            return _bdContexto.SaveChanges() >= 1 ? true : false;
         }
 
         public bool ExcluirInsumo(int id)
         {
             _bdContexto.Insumos.Where(x => x.Id == id).ExecuteDelete();
-            return _bdContexto.SaveChanges() > 0 ? true : false;
+            _bdContexto.SaveChanges();
+            return _bdContexto.SaveChanges() >= 1 ? true : false;
         }
     }
 }
