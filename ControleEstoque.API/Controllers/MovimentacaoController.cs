@@ -8,12 +8,12 @@ namespace ControleEstoque.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovimentacaoInsumosController : ControllerBase
+    public class MovimentacaoController : ControllerBase
     {
         private readonly BdContexto _contextoBd;
-        private readonly IMovimentacaoInsumos _movimentacao;
+        private readonly IMovimentacao _movimentacao;
 
-        public MovimentacaoInsumosController(BdContexto contextoBd, IMovimentacaoInsumos movimentacao)
+        public MovimentacaoController(BdContexto contextoBd, IMovimentacao movimentacao)
         {
             _contextoBd = contextoBd;
             _movimentacao = movimentacao;
