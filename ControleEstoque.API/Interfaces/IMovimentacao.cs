@@ -2,7 +2,7 @@
 
 namespace ControleEstoque.API.Interfaces
 {
-    public interface IMovimentacaoInsumos
+    public interface IMovimentacao
     {
         List<Movimentacao> ListarMovimentacoes();
         Movimentacao BuscarMovimentacaoPorId(int id);
