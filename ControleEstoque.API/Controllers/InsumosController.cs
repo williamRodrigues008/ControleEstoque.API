@@ -30,13 +30,13 @@ namespace ControleEstoque.API.Controllers
         }
 
         [HttpPost("BuscarInsumoPorId")]
-        public IEnumerable<Insumo> BuscarInsumoPorId(int id)
+        public async Task<IActionResult> BuscarInsumoPorId(int id)
         {
             var insumo = _iinsumos.BuscarInsumoPorId(id);
             if (insumo is not null)
-               yield return insumo;
+                return Ok(insumo);
             else
-                yield return new Insumo();
+                return BadRequest("Não foi possível localizar o item da busca");
         }
 
         [HttpPost("AdicionarInsumo")]
@@ -50,6 +50,22 @@ namespace ControleEstoque.API.Controllers
                 return BadRequest("Ops! Ocorreu um erro na adição do insumo!");
             else
                 return BadRequest("Você deve adicionar os dados do insumo!");
+        }
+
+        [HttpPut("EditarInsumo")]
+        public async Task<IActionResult> EditarInsumo(Insumo insumo)
+        {
+            return _iinsumos.EditarInsumo(insumo)
+                ? Ok("Alteração realizada com sucesso!")
+                : BadRequest("Não foi possível realizar esta operação!");
+        }
+
+        [HttpDelete("EditarInsumo")]
+        public async Task<IActionResult> ExcluirInsumo(int id)
+        {
+            return _iinsumos.ExcluirInsumo(id)
+                ? Ok("Insumo excluído com sucesso!")
+                : BadRequest("Ops! ocorreu um erro ao excluir o insumo");
         }
     }
 }
