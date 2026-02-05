@@ -16,12 +16,12 @@ builder.Services.AddDbContext<BdContexto>(
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-
+builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IQuimicos, QuimicoService>();
 builder.Services.AddScoped<IInsumos, InsumoService>();
-builder.Services.AddScoped<IMovimentacaoInsumos, MovimentacaoService>();
+builder.Services.AddScoped<IMovimentacao, MovimentacaoService>();
 
 var app = builder.Build();
 

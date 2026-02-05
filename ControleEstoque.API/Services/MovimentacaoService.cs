@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleEstoque.API.Services
 {
-    public class MovimentacaoService : IMovimentacaoInsumos
+    public class MovimentacaoService : IMovimentacao
     {
         private readonly BdContexto _bdContexto;
 
@@ -17,21 +17,21 @@ namespace ControleEstoque.API.Services
         public bool AdicionarMovimentacaoInsumo(Movimentacao movimentacao)
         {
             if (movimentacao is not null)
-                _bdContexto.MovimentacaoInsumos.Add(movimentacao);
+                _bdContexto.MovimentacaoInsumo.Add(movimentacao);
 
             return _bdContexto.SaveChanges() > 0 ? true : false;
         }
 
         public ItemMovimentado BuscarItemPorId(int id) => _bdContexto.ItensMovimentados.SingleOrDefault(x => x.IdMovimentacao == id)!;
 
-        public Movimentacao BuscarMovimentacaoPorId(int id) => _bdContexto.MovimentacaoInsumos.SingleOrDefault(x => x.Id == id)!;
+        public Movimentacao BuscarMovimentacaoPorId(int id) => _bdContexto.MovimentacaoInsumo.SingleOrDefault(x => x.Id == id)!;
 
         public bool EditarMovimentacao(Movimentacao movimentacao)
         {
             if (movimentacao is null)
                 return false;
 
-            _bdContexto.MovimentacaoInsumos.Where(x => x.Id == movimentacao.Id).ExecuteUpdate(x =>
+            _bdContexto.MovimentacaoInsumo.Where(x => x.Id == movimentacao.Id).ExecuteUpdate(x =>
             { 
                 x.SetProperty(m => m.ItensMovimentados, movimentacao.ItensMovimentados);
                 x.SetProperty(m => m.DataMovimentacao, movimentacao?.DataMovimentacao);
@@ -43,7 +43,7 @@ namespace ControleEstoque.API.Services
         }
         public bool ExcluirMovimentacao(int id)
         {
-            _bdContexto.MovimentacaoInsumos.Where(x => x.Id == id).ExecuteDelete();
+            _bdContexto.MovimentacaoInsumo.Where(x => x.Id == id).ExecuteDelete();
             return _bdContexto.SaveChanges() > 0 ? true : false;
         }
 
@@ -51,7 +51,7 @@ namespace ControleEstoque.API.Services
 
         public List<Movimentacao> ListarMovimentacoes()
         {
-            return _bdContexto.MovimentacaoInsumos
+            return _bdContexto.MovimentacaoInsumo
                 .Take(20)
                 .ToList();
         }

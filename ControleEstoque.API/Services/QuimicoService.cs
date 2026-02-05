@@ -22,6 +22,8 @@ namespace ControleEstoque.API.Services
             return _bdContexto.SaveChanges() > 0 ? true : false;
         }
 
+        public Quimico BuscarQuimicoPorId(int id) => _bdContexto.Quimico.SingleOrDefault(q => q.Id == id)!;
+
         public bool EditarQuimico(Quimico quimico)
         {
             if (quimico is null)
