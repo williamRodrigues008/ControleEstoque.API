@@ -1,3 +1,7 @@
 <Solution>
   <Project Path="ControleEstoque.API/ControleEstoque.API.csproj" />
+  <Project Path="ControleEstoque.APP/ControleEstoque.APP.esproj">
+    <Build />
+    <Deploy />
+  </Project>
 </Solution>
