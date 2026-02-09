@@ -1,0 +1,12 @@
+<h1>Lista de Insumos</h1>
+<table class="table table-striped">
+    <tbody>
+        @for (item of insumos$ | async ; track item.nome ) {
+            <tr>
+                <td>{{item.nome}}</td>
+                <td>{{item.quantidade}}</td>
+                <td>{{item.unidade}}</td>
+            </tr>    
+        }
+    </tbody>
+</table>
