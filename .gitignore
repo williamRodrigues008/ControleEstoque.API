@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/ControleEstoque.API/appsettings.json
+/ControleEstoque.APP/angular.json
+/ControleEstoque.APP/src/environments/environment.development.ts
+/ControleEstoque.APP/src/environments/environment.ts
+/ControleEstoque.APP/.vscode/launch.json
+/ControleEstoque.APP/.vscode/launch.json
