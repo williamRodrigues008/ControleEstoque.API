@@ -20,13 +20,13 @@ namespace ControleEstoque.API.Controllers
         }
 
         [HttpGet("listarInsumos")]
-        public async Task<IActionResult> ListarInsumosAsync()
+        public List<Insumo> ListarInsumosAsync()
         {
             var insumos = _iinsumos.BuscarInsumos();
             if (insumos is not null)
-                return Ok(insumos);
+                return insumos;
             else
-                return BadRequest("Ops! houve um erro na consulta por insumos.");
+                return new List<Insumo>();
         }
 
         [HttpPost("BuscarInsumoPorId")]
