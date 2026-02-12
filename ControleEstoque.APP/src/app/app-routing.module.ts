@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { InsumoComponent } from './components/insumo/insumo.component';
+import { NotFoundError } from 'rxjs';
 
-const routes: Routes = [];
+export const routes: Routes = [
+  { path: 'home', component: InsumoComponent },
+  { path: "insumos", component: InsumoComponent},
+  { path: "quimicos", component: NotFoundError }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
