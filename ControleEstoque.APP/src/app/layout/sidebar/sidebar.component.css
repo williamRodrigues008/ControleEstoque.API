@@ -3,7 +3,7 @@
     height: 100vh;
     background: #212529;
     color: #fff;
-    position: fixed;
+    position: relative;
     left: 0;
     top: 0;
     padding: 1rem;
