@@ -1,0 +1,38 @@
+.sidebar{
+    width: 240px;
+    height: 100vh;
+    background: #212529;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 1rem;
+}
+
+.logo{
+    margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  margin-bottom: 1rem;
+}
+
+.menu a {
+  color: #adb5bd;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.menu a.active,
+.menu a:hover {
+  background: #0d6efd;
+  color: #fff;
+}
