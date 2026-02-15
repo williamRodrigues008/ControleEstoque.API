@@ -20,16 +20,14 @@ namespace ControleEstoque.API.Controllers
         }
 
         [HttpGet("ListarMovimentacoes")]
-        public async Task<IActionResult> ListarMovimentacoes()
+        public List<Movimentacao> ListarMovimentacoes()
         {
             var listaDeMovimentacao = _movimentacao.ListarMovimentacoes();
 
             if (listaDeMovimentacao is not null)
-            {
-                return Ok(listaDeMovimentacao);
-            }
+                return listaDeMovimentacao;
             else
-                return NotFound("Ops! houve um erro na execução da busca.");
+                return new List<Movimentacao>();
         }
 
         [HttpPost("BuscarMovimentacaoPorId")]
