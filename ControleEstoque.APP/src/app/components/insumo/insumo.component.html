@@ -1,21 +1,34 @@
 <div class="container">
-    <h1>Lista de Insumos</h1>
-    <table class="table table-dark table-striped  table-bordered">
-    <thead>
+  <h2>Lista de Insumos</h2>
+  <div class="rounded-2 overflow-hidden">
+    <table class="table table-dark table-striped mb-0">
+      <thead>
         <tr>
-            <th>Nome</th>
-            <th>Quantidade</th>
-            <th>Unidade</th>
+          <th>Nome</th>
+          <th>Quantidade</th>
+          <th>Unidade</th>
         </tr>
-  </thead>
-    <tbody>
-        @for (item of insumos$ | async ; track item.nome ) {
+      </thead>
+      <tbody>
+        @if (insumos$ | async; as listaInsumos) {
+          @if (listaInsumos.length > 0) {
+            @for (insumo of listaInsumos; track insumo.id) {
+              <tr>
+                <td>{{ insumo.nome }}</td>
+                <td>{{ insumo.quantidade }}</td>
+                <td>{{ insumo.unidade }}</td>
+              </tr>
+            }
+          }
+          @else {
             <tr>
-                <td>{{item.nome}}</td>
-                <td>{{item.quantidade}}</td>
-                <td>{{item.unidade}}</td>
-            </tr>    
+              <td colspan="3" class="empty-message text-center py-4">
+                Sem dados para exibição
+              </td>
+            </tr>
+          }
         }
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
 </div>

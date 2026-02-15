@@ -14,11 +14,7 @@ import { CommonModule } from '@angular/common';
 
 export class InsumoComponent {
 
-  ngOnInit() {
-    this.listarInsumos();
-  }
-
-  insumos$ = new Observable<Insumo[]>();
+  insumos$!: Observable<Insumo[]>;
 
   constructor(private insumoService: InsumoService) {
     this.listarInsumos()
