@@ -1,3 +1,43 @@
 <div class="container">
-    <h1>Movimentações</h1>
+  <h2>Movimentações</h2>
+  <div class="container">
+    <span>
+      <a class="btn-Adicionar" href="/novaMovimentacao">Adicionar movimentação</a>
+    </span>
+  </div>
+  <br/>
+  <div class="rounded-2 overflow-hidden">
+    <table class="table mb-0 table-dark table-striped">
+      <thead>
+        <tr>
+          <th>Data Movimentação</th>
+          <th>Local</th>
+          <th>Solicitante</th>
+          <th>Responsável</th>
+          <th>Itens</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (movimentacoes$ | async; as movimentacoes) {
+          @if (movimentacoes.length > 0) {
+            <tr>
+              @for (mov of movimentacoes; track mov.id) {
+                <td>{{ mov.dataMovimentacao }}</td>
+                <td>{{ mov.local }}</td>
+                <td>{{ mov.solicitante }}</td>
+                <td>{{ mov.responsavel }}</td>
+                <td><a routerLink="/listarItensMovimentados">Ver Itens</a></td>
+              }
+            </tr>
+          } @else {
+            <tr>
+              <td colspan="5" class="empty-message text-center py-4">
+                Sem dados para exibição
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
