@@ -1,0 +1,23 @@
+.btn-Voltar{
+    width: 50px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-Voltar:hover{
+    background-color: green;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.divFormMovimentacao{
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 20px;
+}
+span{
+    padding: 10px;
+}

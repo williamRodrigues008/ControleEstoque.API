@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Nova Movimentação</h2>
+  <a class="a" href="/home"><mat-icon>arrow_back</mat-icon></a>
+  <form>
+    <div class="container divFormMovimentacao">
+      <span>
+        <label for="dataMovimentacao">Data movimentação: &nbsp;</label>
+        <input
+          type="date"
+          placeholder="--/--/----"
+          id="dataMovimentacao"
+          name="dataMovimentacao"
+        />
+      </span>
+      <span>
+        <label for="local">Local: &nbsp;</label>
+        <select id="local" name="local">
+          <option>Papel</option>
+        </select>
+      </span>
+      <span>
+        <span>
+          <label for="nome">Item:</label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            placeholder="o nome do item que voce deseja adicionar"
+          />
+        </span>
+        <span>
+          <label for="quantidade">Quantidade:</label>
+          <input type="number" name="quantidade" id="quantidade" />
+        </span>
+        <span>
+          <label for="quimico">Produto Químico? &nbsp;</label>
+          <input
+            type="checkbox"
+            class="check_box"
+            name="quimico"
+            id="quimico"
+          />
+        </span>
+      </span>
+    </div>
+  </form>
+</div>
