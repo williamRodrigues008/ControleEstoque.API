@@ -17,7 +17,7 @@ namespace ControleEstoque.API.Services
         public bool AdicionarMovimentacaoInsumo(Movimentacao movimentacao)
         {
             if (movimentacao is not null)
-                _bdContexto.MovimentacaoInsumo.Add(movimentacao);
+                _bdContexto.Movimentacao.Add(movimentacao);
 
             _bdContexto.SaveChanges();
             return _bdContexto.SaveChanges() >= 1 ? true : false;
@@ -25,14 +25,14 @@ namespace ControleEstoque.API.Services
 
         public ItemMovimentado BuscarItemPorId(int id) => _bdContexto.ItensMovimentados.SingleOrDefault(x => x.IdMovimentacao == id)!;
 
-        public Movimentacao BuscarMovimentacaoPorId(int id) => _bdContexto.MovimentacaoInsumo.SingleOrDefault(x => x.Id == id)!;
+        public Movimentacao BuscarMovimentacaoPorId(int id) => _bdContexto.Movimentacao.SingleOrDefault(x => x.Id == id)!;
 
         public bool EditarMovimentacao(Movimentacao movimentacao)
         {
             if (movimentacao is null)
                 return false;
 
-            _bdContexto.MovimentacaoInsumo.Where(x => x.Id == movimentacao.Id).ExecuteUpdate(x =>
+            _bdContexto.Movimentacao.Where(x => x.Id == movimentacao.Id).ExecuteUpdate(x =>
             { 
                 x.SetProperty(m => m.ItensMovimentados, movimentacao.ItensMovimentados);
                 x.SetProperty(m => m.DataMovimentacao, movimentacao?.DataMovimentacao);
@@ -45,7 +45,7 @@ namespace ControleEstoque.API.Services
         }
         public bool ExcluirMovimentacao(int id)
         {
-            _bdContexto.MovimentacaoInsumo.Where(x => x.Id == id).ExecuteDelete();
+            _bdContexto.Movimentacao.Where(x => x.Id == id).ExecuteDelete();
             _bdContexto.SaveChanges();
             return _bdContexto.SaveChanges() >= 1 ? true : false;
         }
@@ -54,7 +54,7 @@ namespace ControleEstoque.API.Services
 
         public List<Movimentacao> ListarMovimentacoes()
         {
-            return _bdContexto.MovimentacaoInsumo
+            return _bdContexto.Movimentacao
                 .Take(20)
                 .ToList();
         }
