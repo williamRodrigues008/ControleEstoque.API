@@ -4,3 +4,27 @@
   margin-left: 240px;
   padding: 1rem;
 }
+
+.btn-Adicionar{
+  border-radius: 5px;
+  color: black;
+  border: 0.5px solid gray;
+  padding: 8px;
+  text-decoration: none;
+}
+.btn-Adicionar:hover{
+background-color:rgb(217, 220, 217);
+cursor: pointer;
+}
+
+.a{
+   border: none;
+  color: gray;
+  text-decoration: none;
+}
+.a:hover{
+color: green;
+cursor: pointer;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
