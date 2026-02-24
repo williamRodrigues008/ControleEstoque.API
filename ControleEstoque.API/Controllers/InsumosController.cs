@@ -44,9 +44,9 @@ namespace ControleEstoque.API.Controllers
         {
             var adicionadoInsumo = _iinsumos.AdicionarInsumo(insumo);
 
-            if (insumo.Equals(TipoRetornoEnum.Sucesso))
+            if (adicionadoInsumo.Equals(TipoRetornoEnum.Sucesso))
                 return Ok("Insumo adicionado com sucesso!");
-            else if (insumo.Equals(TipoRetornoEnum.Erro))
+            else if (adicionadoInsumo.Equals(TipoRetornoEnum.Erro))
                 return BadRequest("Ops! Ocorreu um erro na adição do insumo!");
             else
                 return BadRequest("Você deve adicionar os dados do insumo!");

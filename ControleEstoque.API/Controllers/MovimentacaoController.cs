@@ -20,14 +20,23 @@ namespace ControleEstoque.API.Controllers
         }
 
         [HttpGet("ListarMovimentacoes")]
-        public List<Movimentacao> ListarMovimentacoes()
+        public IActionResult ListarMovimentacoes(int pagina, int quantidadePorPagina)
         {
-            var listaDeMovimentacao = _movimentacao.ListarMovimentacoes();
-
+            var listaDeMovimentacao = _movimentacao.ListarMovimentacoes()
+                            .OrderByDescending(x => x.DataMovimentacao);
             if (listaDeMovimentacao is not null)
-                return listaDeMovimentacao;
+            {
+                var paginaTotal = listaDeMovimentacao.Count();
+
+                return Ok(
+                            new
+                            {
+                                movi = listaDeMovimentacao.Skip((pagina - 1) * quantidadePorPagina).Take(quantidadePorPagina),
+                                total = paginaTotal
+                            });
+            }
             else
-                return new List<Movimentacao>();
+                return NotFound(new List<Movimentacao>());
         }
 
         [HttpPost("BuscarMovimentacaoPorId")]
@@ -41,7 +50,7 @@ namespace ControleEstoque.API.Controllers
         }
 
         [HttpPost("ListarItensMovimentados")]
-        public async Task<IActionResult> ListarItensMovimentados(int id)
+        public async Task<IActionResult> ListarItensMovimentados([FromBody] int id)
         {
             var itensMovimentados = _movimentacao.ListarItensMovimentados(id);
             if (itensMovimentados is not null)
@@ -61,11 +70,12 @@ namespace ControleEstoque.API.Controllers
         }
 
         [HttpPost("AdicionarMovimentacaoInsumo")]
-        public async Task<IActionResult> AdicionarMovimentacaoInsumo(Movimentacao movimentacao)
+        public async Task<IActionResult> AdicionarMovimentacaoInsumo([FromBody]Movimentacao movimentacao)
         {
             if (movimentacao is not null)
             {
-                if (_movimentacao.AdicionarMovimentacaoInsumo(movimentacao))
+                var mov = _movimentacao.AdicionarMovimentacaoInsumo(movimentacao);
+                    if (mov)
                     return Ok("Movimentação adicionada com sucesso!");
                 else
                     return BadRequest("Houve um problema ao salvar movimentação!");
