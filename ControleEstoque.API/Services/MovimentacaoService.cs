@@ -17,13 +17,15 @@ namespace ControleEstoque.API.Services
         public bool AdicionarMovimentacaoInsumo(Movimentacao movimentacao)
         {
             if (movimentacao is not null)
+            {
                 _bdContexto.Movimentacao.Add(movimentacao);
+                _bdContexto.ItemMovimentado.AddRange(movimentacao.ItensMovimentados);
+            }
 
-            _bdContexto.SaveChanges();
-            return _bdContexto.SaveChanges() >= 1 ? true : false;
+            return _bdContexto.SaveChanges() > 0;
         }
 
-        public ItemMovimentado BuscarItemPorId(int id) => _bdContexto.ItensMovimentados.SingleOrDefault(x => x.IdMovimentacao == id)!;
+        public ItemMovimentado BuscarItemPorId(int id) => _bdContexto.ItemMovimentado.SingleOrDefault(x => x.MovimentacaoId == id)!;
 
         public Movimentacao BuscarMovimentacaoPorId(int id) => _bdContexto.Movimentacao.SingleOrDefault(x => x.Id == id)!;
 
@@ -40,23 +42,19 @@ namespace ControleEstoque.API.Services
                 x.SetProperty(m => m.Solicitante, movimentacao?.Solicitante);
                 x.SetProperty(m => m.Responsavel, movimentacao?.Responsavel);
             });
-            _bdContexto.SaveChanges();
-            return _bdContexto.SaveChanges() >= 1 ? true : false;
+            return _bdContexto.SaveChanges() >= 1;
         }
         public bool ExcluirMovimentacao(int id)
         {
             _bdContexto.Movimentacao.Where(x => x.Id == id).ExecuteDelete();
-            _bdContexto.SaveChanges();
-            return _bdContexto.SaveChanges() >= 1 ? true : false;
+            return _bdContexto.SaveChanges() > 0;
         }
 
-        public List<ItemMovimentado> ListarItensMovimentados(int idMovimentacao) => _bdContexto.ItensMovimentados.Where(x => x.IdMovimentacao == idMovimentacao).ToList();
+        public List<ItemMovimentado> ListarItensMovimentados(int idMovimentacao) => _bdContexto.ItemMovimentado.Where(x => x.MovimentacaoId == idMovimentacao).ToList();
 
         public List<Movimentacao> ListarMovimentacoes()
         {
-            return _bdContexto.Movimentacao
-                .Take(20)
-                .ToList();
+            return _bdContexto.Movimentacao.ToList();
         }
     }
 }
