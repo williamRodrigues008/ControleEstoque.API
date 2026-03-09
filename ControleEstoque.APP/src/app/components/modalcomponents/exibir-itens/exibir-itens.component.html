@@ -1,0 +1,58 @@
+<div class="container">
+  <h3>Itens da Movimentação</h3>
+  <a class="a voltar" href="/home"><span class="material-symbols-outlined">keyboard_return</span>&nbsp; Voltar</a>
+  @if (insumos | async; as insumos) {
+    @if (insumos.length > 0) {
+      <div class="container card">
+        <span class="legend">Materiais de Insumos</span>
+
+        <table class="table overflow-hidden striped mb-0">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Quantidade</th>
+              <th>Unidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of insumos; track item.id) {
+              <tr>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.quantidade }}</td>
+                <td>{{ item.unidade }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <br />
+    }
+  }
+  @if (quimicos | async; as quimico) {
+    @if (quimico.length > 0) {
+      <div class="container card">
+        <span class="legend">Produtos Químicos</span>
+        <table class="table striped mb-0">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Quantidade</th>
+              <th>Unidade</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of quimico; track item.id) {
+              <tr>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.quantidade }}</td>
+                <td>{{ item.unidade }}</td>
+                <td>{{ item.tipo }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>

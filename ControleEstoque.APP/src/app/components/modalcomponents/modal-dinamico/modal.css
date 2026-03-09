@@ -1,0 +1,41 @@
+.containerBtn {
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.error {
+  border-radius: 5px;
+  border: 1px solid red;
+  padding: 10px;
+}
+
+.success {
+  border-radius: 5px;
+  border: 1px solid green;
+  padding: 10px;
+}
+
+.confirm {
+  border-radius: 5px;
+  border: 1px solid blue;
+  padding: 10px;
+}
+
+.alerta {
+  border-radius: 5px;
+  border: 1px solid yellow;
+  padding: 10px;
+}
+
+.custom-backdrop {
+  backdrop-filter: blur(0.5px);
+  color: black;
+}
+
+.custom-dialog .mat-mdc-dialog-container .mat-mdc-dialog-surface {
+  background: whitesmoke !important;
+  border-radius: 5px;
+  color: black;
+}

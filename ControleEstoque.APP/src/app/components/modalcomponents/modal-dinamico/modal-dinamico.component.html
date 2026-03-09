@@ -1,0 +1,64 @@
+<div class="{{ data.tipo }}">
+  <div class="container">
+    <h6>
+      <strong>
+        <span class="material-symbols-outlined text-{{ data.color }}">{{
+          data.icone
+        }}</span>
+        {{ data.titulo }}</strong
+      >
+    </h6>
+  </div>
+  <section class="container">
+    @for (campo of data.campos; track campo.id) {
+      <label>
+        {{ campo.label }}
+      </label>
+    }
+  </section>
+  <hr />
+  <div class="container containerBtn">
+    @if (data.tipo === "error") {
+      <button
+        class="text-dark"
+        class="btn btn-danger"
+        (click)="dialogRef.close()"
+      >
+        Fechar
+      </button>
+    }
+    @if (data.tipo === "success") {
+      <button class="btn btn-success" (click)="dialogRef.close()">Ok</button>
+    }
+    @if (data.tipo === "alerta") {
+      <button
+        class="text-dark"
+        class="btn btn-warning"
+        (click)="dialogRef.close()"
+      >
+        Entendi
+      </button>
+    }
+    @if (data.tipo === "confirm") {
+      <span
+        ><button
+          class="text-dark"
+          class="btn btn-secondary"
+          (click)="dialogRef.close(false)"
+        >
+          Cancelar
+        </button></span
+      >
+      &nbsp;
+      <span
+        ><button
+          class="text-dark"
+          class="btn btn-primary"
+          (click)="dialogRef.close(true)"
+        >
+          Ok
+        </button></span
+      >
+    }
+  </div>
+</div>

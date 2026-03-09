@@ -1,43 +1,93 @@
 <div class="container">
-  <h2>Movimentações</h2>
+  <h3>Movimentações</h3>
+  <br>
   <div class="container">
     <span>
-      <a class="btn-Adicionar" href="/novaMovimentacao">Adicionar movimentação</a>
+      <a class="btn-Adicionar" [routerLink]="['/novaMovimentacao']"
+        >Adicionar movimentação</a
+      >
     </span>
   </div>
-  <br/>
-  <div class="rounded-2 overflow-hidden">
-    <table class="table mb-0 table-dark table-striped">
-      <thead>
-        <tr>
-          <th>Data Movimentação</th>
-          <th>Local</th>
-          <th>Solicitante</th>
-          <th>Responsável</th>
-          <th>Itens</th>
-        </tr>
-      </thead>
-      <tbody>
-        @if (movimentacoes$ | async; as movimentacoes) {
-          @if (movimentacoes.length > 0) {
+  <br />
+  @if (movimentacoes$ | async; as movimentacoes) {
+    <div class="border rounded-2 overflow-hidden">
+      <table class="table table-hover mb-0 striped">
+        <thead class="text-center">
+          <tr>
+            <th>Data Movimentação</th>
+            <th>Local</th>
+            <th>Solicitante</th>
+            <th>Responsável</th>
+            <th>Ver Itens</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          @for (mov of movimentacoes.movi; track mov.id) {
             <tr>
-              @for (mov of movimentacoes; track mov.id) {
-                <td>{{ mov.dataMovimentacao }}</td>
-                <td>{{ mov.local }}</td>
-                <td>{{ mov.solicitante }}</td>
-                <td>{{ mov.responsavel }}</td>
-                <td><a routerLink="/listarItensMovimentados">Ver Itens</a></td>
-              }
-            </tr>
-          } @else {
-            <tr>
-              <td colspan="5" class="empty-message text-center py-4">
-                Sem dados para exibição
+              <td class="col-2">
+                {{ mov.dataMovimentacao | date: "dd-MM-yyyy" }}
+              </td>
+              <td>{{ mov.local }}</td>
+              <td>{{ mov.solicitante }}</td>
+              <td>{{ mov.responsavel }}</td>
+              <td>
+                <a [routerLink]="['/listarItensMovimentados', mov.id]"
+                  ><span class="material-symbols-outlined text-black">visibility</span></a
+                >
+              </td>
+              <td>
+                <a><span class="material-symbols-outlined text-danger" (click)="excluirMovimentacoes(mov.id!)">delete</span></a>
+                <a [routerLink]="['/editarMovimentacao', mov.id]">
+                  <span class="material-symbols-outlined text-warning">edit_note</span>
+                </a>
               </td>
             </tr>
           }
-        }
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
+    <br />
+    @if (movimentacoes.total >= quantidadePorPagina) {
+      <nav>
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="paginaAtual === 1">
+            <a
+              class="page-link"
+              style="cursor: pointer"
+              (click)="mudarPagina(paginaAtual - 1)"
+            >
+              Anterior
+            </a>
+          </li>
+
+          @for (page of paginas; track page) {
+            <li class="page-item" [class.active]="paginaAtual === page">
+              <a
+                class="page-link"
+                style="cursor: pointer"
+                (click)="mudarPagina(page)"
+              >
+                {{ page }}
+              </a>
+            </li>
+          }
+
+          <li class="page-item" [class.disabled]="paginaAtual === totalPaginas">
+            <a
+              class="page-link"
+              style="cursor: pointer"
+              (click)="mudarPagina(paginaAtual + 1)"
+            >
+              Próxima
+            </a>
+          </li>
+        </ul>
+      </nav>
+    }
+  } @else {
+      <h6 class="empty-message text-center py-4">
+        Sem dados para exibição
+      </h6>
+  }
 </div>

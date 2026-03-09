@@ -1,7 +1,7 @@
 .sidebar{
     width: 240px;
-    height: 100vh;
-    background: #002a54;
+    height: 100%;
+    background: #000b16;
     color: #fff;
     position: relative;
     left: 0;
@@ -20,15 +20,17 @@
 }
 
 .menu li {
-  margin-bottom: 1rem;
+margin-bottom: 5px;
 }
 
 .menu a {
-  color: #adb5bd;
+  color: #fbfbfb;
   text-decoration: none;
   display: block;
-  padding: 0.5rem;
   border-radius: 4px;
+  padding: 0.4rem;
+  display: flex;
+  align-content: center;
 }
 
 img{

@@ -4,12 +4,15 @@ import { InsumoComponent } from './components/insumo/insumo.component';
 import { NotFoundError } from 'rxjs';
 import { MovimentacaoComponent } from './components/movimentacao/movimentacao.component';
 import { AdicionarMovimentacaoComponent } from './components/modalcomponents/adicionar-movimentacao/adicionar-movimentacao.component';
+import { ExibirItensComponent } from './components/modalcomponents/exibir-itens/exibir-itens.component';
+import { EditarMovimentacaoComponent } from './components/editar-movimentacao/editar-movimentacao.component';
 
 export const routes: Routes = [
   { path: 'home', component: MovimentacaoComponent },
   { path: "insumos", component: InsumoComponent},
-  { path: "quimicos", component: NotFoundError },
-  { path: "novaMovimentacao", component: AdicionarMovimentacaoComponent }
+  { path: "novaMovimentacao", component: AdicionarMovimentacaoComponent },
+  { path: "listarItensMovimentados/:id", component: ExibirItensComponent },
+  { path: "editarMovimentacao/:id", component: EditarMovimentacaoComponent }
 ];
 
 @NgModule({

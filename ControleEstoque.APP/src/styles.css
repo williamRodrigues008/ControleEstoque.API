@@ -1,30 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
 .content {
   margin-left: 240px;
   padding: 1rem;
 }
 
-.btn-Adicionar{
-  border-radius: 5px;
+.custom-backdrop {
+  backdrop-filter: blur(0.5px);
+  background-color: rgba(101, 101, 101, 0.6) !important;
   color: black;
-  border: 0.5px solid gray;
-  padding: 8px;
-  text-decoration: none;
-}
-.btn-Adicionar:hover{
-background-color:rgb(217, 220, 217);
-cursor: pointer;
 }
 
-.a{
-   border: none;
+.custom-dialog .mat-mdc-dialog-container .mat-mdc-dialog-surface {
+  background: whitesmoke !important;
+  border-radius: 5px;
+  color: black;
+  width: auto;
+  height: auto;
+}
+
+.btn-Adicionar {
+  border-radius: 5px;
+  color: rgb(48, 47, 47);
+  background-color: rgb(238, 238, 238);
+  padding: 10px;
+  border: 1px solid gray;
+  text-decoration: none;
+}
+.btn-Adicionar:hover {
+  background-color: rgb(61, 193, 240);
+  cursor: pointer;
+}
+
+.card {
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.legend {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background: white;
+  padding: 0 8px;
+  font-weight: bold;
+}
+
+.voltar {
+  display: flex;
+  width: 100px;
+}
+
+.a {
+  border: none;
   color: gray;
   text-decoration: none;
 }
-.a:hover{
-color: green;
-cursor: pointer;
+.a:hover {
+  color: green;
+  cursor: pointer;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
