@@ -33,6 +33,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IQuimicos, QuimicoService>();
 builder.Services.AddScoped<IInsumos, InsumoService>();
 builder.Services.AddScoped<IMovimentacao, MovimentacaoService>();
+builder.Services.AddScoped<ILocal, LocalService>();
+builder.Services.AddScoped<IUnidade, UnidadeService>();
 
 var app = builder.Build();
 
