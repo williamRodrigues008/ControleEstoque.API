@@ -11,5 +11,6 @@ namespace ControleEstoque.API.Data
         public DbSet<ItemMovimentado> ItemMovimentado { get; set; }
         public DbSet<Quimico> Quimico { get; set; }
         public DbSet<Local> Local { get; set; }
+        public DbSet<Unidade> Unidade { get; set; }
     }
 }
