@@ -1,0 +1,13 @@
+.btnAtualizarValor{
+    background-color: transparent;
+    border: none;
+    font-weight: bolder;
+}
+
+.subtrair{
+    color: red;
+}
+
+.adicionar{
+    color: green;
+}

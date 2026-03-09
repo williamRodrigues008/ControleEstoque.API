@@ -1,0 +1,218 @@
+<h3>Edição de Movimentação</h3>
+<a class="a voltar" href="/home"
+  ><span class="material-symbols-outlined">keyboard_return</span>&nbsp;
+  Voltar</a
+>
+
+@if (movimentacao$ | async; as mov) {
+  <div class="container card">
+    <span class="legend">Dados da Movimentação</span>
+    <div class="container">
+      <label>
+        Data Movimentação:
+        <input
+          type="date"
+          name="dataMovimentacao"
+          disabled="true"
+          class="form-select"
+          value="{{ mov.dataMovimentacao | date: 'yyyy-MM-dd' }}"
+      /></label>
+      <br />
+      <label style="font-size: 8pt; color: orangered"
+        ><i>*o campo [Data de movimentação] não pode ser alterada.</i></label
+      >
+    </div>
+    <div class="container">
+      <label> Responsável: </label>
+      <input
+        disabled="true"
+        type="text"
+        name="responsavel"
+        class="form-select"
+        value="{{ mov.responsavel }}"
+      />
+      <label style="font-size: 8pt; color: orangered"
+        ><i>*o campo [Responsável] não pode ser alterado.</i></label
+      >
+    </div>
+    <div class="container">
+      <label> Solicitante: </label>
+      <input
+        type="text"
+        name="solicitante"
+        class="form-select"
+        value="{{ mov.solicitante }}"
+      />
+    </div>
+    <div class="container">
+      <label> Local: </label>
+      <select class="form-select" name="nomeLocal" [(ngModel)]="mov.local">
+        <option selected>{{ mov.local }}</option>
+        @for (local of listaLocais$ | async; track local.id) {
+          <option [hidden]="local.nome === mov.local">
+            {{ local.nome }}
+          </option>
+        }
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="container card">
+    <span class="legend">Materiais de movimentação</span>
+    @if (insumos.length > 0) {
+      <div class="container card">
+        <span class="legend">Insumos</span>
+
+        <table class="table overflow-hidden striped mb-0">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Quantidade</th>
+              <th>Unidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (
+              item of mov.itensMovimentados;
+              track item.id;
+              let i = $index
+            ) {
+              @if (!item.produtoQuimico) {
+                <tr>
+                  <td class="col-3">
+                    <div>
+                      <input
+                        type="text"
+                        name="nomeInsumo"
+                        class="form-select"
+                        [(ngModel)]="item.nome"
+                      />
+                    </div>
+                  </td>
+                  <td class="col-3">
+                    <button
+                      class="btnAtualizarValor subtrair"
+                      (click)="subtrair(i, 'insumo')"
+                    >
+                      -
+                    </button>
+                    <span>{{ item.quantidade }}</span>
+                    <button
+                      class="btnAtualizarValor adicionar"
+                      (click)="adicionar(i, 'insumo')"
+                    >
+                      +
+                    </button>
+                  </td>
+                  <td class="col-3">
+                    <div>
+                      <select
+                        class="form-select"
+                        name="unidade"
+                        [(ngModel)]="item.unidade"
+                        (change)="selecionarUnidade(item.unidade)"
+                      >
+                        <option selected>{{ item.unidade }}</option>
+                        @for (
+                          unidade of listaUnidade$ | async;
+                          track unidade.id
+                        ) {
+                          <option [hidden]="item.unidade === unidade.nome">
+                            {{ unidade.nome }}
+                          </option>
+                        }
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+    <br />
+    @if (quimicos.length > 0) {
+      <div class="container card">
+        <span class="legend">Químicos</span>
+        <table class="table striped mb-0">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Quantidade</th>
+              <th>Unidade</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (
+              item of mov.itensMovimentados;
+              track item.id;
+              let a = $index
+            ) {
+              @if (item.produtoQuimico) {
+                <tr>
+                  <td class="col-3">
+                    <div>
+                      <input
+                        type="text"
+                        name="nomeProduto"
+                        class="form-select"
+                        [(ngModel)]="item.nome"
+                      />
+                    </div>
+                  </td>
+                  <td class="col-3">
+                    <button
+                      class="btnAtualizarValor subtrair"
+                      (click)="subtrair(a, 'quimico')"
+                    >
+                      -</button
+                    ><span>{{ item.quantidade }}</span
+                    ><button
+                      class="btnAtualizarValor adicionar"
+                      (click)="adicionar(a, 'quimico')"
+                    >
+                      +
+                    </button>
+                  </td>
+                  <td class="col-3">
+                    <div class="col-6">
+                      <select class="form-select" [(ngModel)]="item.unidade">
+                        @for (
+                          unidade of listaUnidade$ | async;
+                          track unidade.id
+                        ) {
+                          <option
+                            [hidden]="item.unidade === unidade.nome"
+                            [value]="item.unidade"
+                          >
+                            {{ unidade.nome }}
+                          </option>
+                        }
+                      </select>
+                    </div>
+                  </td>
+                  <td class="col-3">
+                    <div class="col-4">
+                      <input
+                        type="text"
+                        class="form-select"
+                        name="tipo"
+                        [(ngModel)]="item.tipo"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+  <br />
+  <button class="btn-Adicionar" (click)="atualizarMovimentacao(mov)">
+    Salvar alteração
+  </button>
+}
