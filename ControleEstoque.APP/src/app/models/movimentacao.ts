@@ -4,7 +4,7 @@ export interface movimentacao{
     id?: number;
     local: string;
     dataMovimentacao: Date;
-    itensMovimentacao: itemMovimentado[];
+    itensMovimentados: itemMovimentado[];
     solicitante: string;
     responsavel: string;
 }
