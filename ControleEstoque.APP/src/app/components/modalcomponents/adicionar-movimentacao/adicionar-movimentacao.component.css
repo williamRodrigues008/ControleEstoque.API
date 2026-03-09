@@ -14,10 +14,16 @@
 }
 
 .divFormMovimentacao{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid gray;
     border-radius: 5px;
     padding: 20px;
 }
-span{
-    padding: 10px;
+
+.divAddMovimentacao{
+display: flex;
+flex-direction: column;
+justify-content: space-between;
 }

@@ -1,47 +1,168 @@
-<div class="container">
-  <h2>Nova Movimentação</h2>
-  <a class="a" href="/home"><mat-icon>arrow_back</mat-icon></a>
+<div class="container divAddMovimentacao">
+  <h3>Nova Movimentação</h3>
+  <a class="a voltar" href="/home"><span class="material-symbols-outlined">keyboard_return</span>&nbsp; Voltar</a>
   <form>
-    <div class="container divFormMovimentacao">
-      <span>
-        <label for="dataMovimentacao">Data movimentação: &nbsp;</label>
-        <input
-          type="date"
-          placeholder="--/--/----"
-          id="dataMovimentacao"
-          name="dataMovimentacao"
-        />
-      </span>
-      <span>
-        <label for="local">Local: &nbsp;</label>
-        <select id="local" name="local">
-          <option>Papel</option>
-        </select>
-      </span>
-      <span>
-        <span>
-          <label for="nome">Item:</label>
+    <div class="container card">
+      <span class="legend">Adição de itens</span>
+      <span class="dadosMovimentacao divDados">
+        <div class="col-3">
+          <span>
+            <label for="dataMovimentacao">Data movimentação: &nbsp;</label>
+            <div>
+              <input
+                class="form-control"
+                [(ngModel)]="dataMovimentacao.toISOString().split('T')[0]"
+                type="date"
+                disabled="{{ !retro }}"
+                id="dataMovimentacao"
+                name="dataMovimentacao"
+              />
+            </div>
+          </span>
+          <span
+            ><label>Lançamento retrô?</label>
+            <input
+              type="checkbox"
+              name="retro"
+              (change)="dataMovimentoRetro($event)"
+            />
+          </span>
+        </div>
+        <div class="col-2">
+          <label for="local">Local: &nbsp;</label>
+          <select
+            class="form-control"
+            (click)="selecionarLocal($event)"
+            id="local"
+            name="local"
+          >
+          <option selected>Selecione o local</option>
+            @for (item of listaLocais$ | async; track item.id) {
+              <option>{{ item.nome }}</option>
+            }
+          </select>
+        </div>
+        <div class="col-3">
+          <label for="solicitante">Solicitante:</label>
           <input
+            class="form-control"
             type="text"
-            id="nome"
-            name="nome"
-            placeholder="o nome do item que voce deseja adicionar"
+            [(ngModel)]="solicitante"
+            placeholder="Nome do solicitante"
+            name="solicitante"
+            id="solicitante"
           />
-        </span>
-        <span>
-          <label for="quantidade">Quantidade:</label>
-          <input type="number" name="quantidade" id="quantidade" />
-        </span>
-        <span>
-          <label for="quimico">Produto Químico? &nbsp;</label>
+        </div>
+        <div class="col-3">
+          <span>
+          <label>Responsável:</label>
           <input
-            type="checkbox"
-            class="check_box"
-            name="quimico"
-            id="quimico"
+            class="form-control"
+            type="text"
+            disabled="true"
+            style="color: gray"
+            [(ngModel)]="responsavel"
+            name="responsavel"
           />
         </span>
+        </div>
+        
+        <br />
       </span>
+      <div class="dadosItem divDados card">
+        <div class="container">
+          <span class="legend">Dados do item</span>
+          <div class="col-3">
+            <label for="nome">Nome:</label>
+            <input
+              class="form-control"
+              type="text"
+              id="nome"
+              [(ngModel)]="nome"
+              name="nome"
+              placeholder="Nome do item"
+            />
+          </div>
+          <div class="col-3">
+            <label for="quantidade">Quantidade:</label>
+            <input
+              class="form-control"
+              type="number"
+              [(ngModel)]="quantidade"
+              name="quantidade"
+              id="quantidade"
+            />
+          </div>
+          <div class="col-3">
+            <label for="unidade">Unidade:</label>
+            <select class="form-control" (change)="selecionarUnidade($event)">
+              <option selected>Selecione uma unidade</option>
+              @for (item of listaUnidade$ | async; track item.id) {
+                <option>{{ item.nome }}</option>
+              }
+            </select>
+          </div>
+          <br />
+          <div>
+            <label for="quimico">Produto Químico? &nbsp;</label>
+            <input
+              type="checkbox"
+              class="checkbox"
+              [(ngModel)]="quimico"
+              name="quimico"
+              id="quimico"
+              (change)="produtoQuimico($event)"
+            />
+          </div>
+          @if (quimico) {
+            <br />
+            <div class="col-3">
+              <label>Tipo Produto:</label>
+              <select class="form-control" (change)="selecionarTipo($event)">
+                <option value="">Selecione</option>
+                <option value="Diluído">Diluído</option>
+                <option value="Concentrado">Concentrado</option>
+              </select>
+            </div>
+          }
+        </div>
+        <br />
+        <span>
+          <a class="btn-Adicionar" (click)="adicionarItemLista()">Adicionar a lista</a>
+        </span>
+      </div>
     </div>
   </form>
+  <br />
+  <div class="card">
+    <span class="legend">Itens para movimentação</span>
+    <table class="table light striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Quantidade</th>
+          <th>Unidade</th>
+          <th>Químico?</th>
+          <th>Tipo Químico</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of itensLista; track item.id) {
+          <tr>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>{{ item.unidade }}</td>
+            <td>{{ item.produtoQuimico ? "Sim" : "Não" }}</td>
+            <td>{{ item.produtoQuimico ? item.tipo : "---" }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <br />
+  @if (itensLista.length > 0) {
+    <div class="container">
+      <a class="btn-Adicionar" (click)="salvarLancamento()">Concluir</a>
+    </div>
+  }
 </div>
