@@ -27,30 +27,26 @@ namespace ControleEstoque.API.Services
 
         public ItemMovimentado BuscarItemPorId(int id) => _bdContexto.ItemMovimentado.SingleOrDefault(x => x.MovimentacaoId == id)!;
 
-        public Movimentacao BuscarMovimentacaoPorId(int id) => _bdContexto.Movimentacao.SingleOrDefault(x => x.Id == id)!;
+        public Movimentacao BuscarMovimentacaoPorId(int id) => _bdContexto.Movimentacao.Include(m => m.ItensMovimentados).SingleOrDefault(x => x.Id == id)!;
 
         public bool EditarMovimentacao(Movimentacao movimentacao)
         {
             if (movimentacao is null)
                 return false;
 
-            _bdContexto.Movimentacao.Where(x => x.Id == movimentacao.Id).ExecuteUpdate(x =>
-            { 
-                x.SetProperty(m => m.ItensMovimentados, movimentacao.ItensMovimentados);
-                x.SetProperty(m => m.DataMovimentacao, movimentacao?.DataMovimentacao);
-                x.SetProperty(m => m.Local, movimentacao?.Local);
-                x.SetProperty(m => m.Solicitante, movimentacao?.Solicitante);
-                x.SetProperty(m => m.Responsavel, movimentacao?.Responsavel);
-            });
+            _bdContexto.Update(movimentacao);
             return _bdContexto.SaveChanges() >= 1;
         }
         public bool ExcluirMovimentacao(int id)
         {
-            _bdContexto.Movimentacao.Where(x => x.Id == id).ExecuteDelete();
-            return _bdContexto.SaveChanges() > 0;
+            ExcluirItensMovimentados(id);
+            var movimentacaoDeletada = _bdContexto.Movimentacao.Where(x => x.Id == id).ExecuteDelete();
+            return movimentacaoDeletada > 0;
         }
 
         public List<ItemMovimentado> ListarItensMovimentados(int idMovimentacao) => _bdContexto.ItemMovimentado.Where(x => x.MovimentacaoId == idMovimentacao).ToList();
+
+        public void ExcluirItensMovimentados(int idMovimentacao) => _bdContexto.ItemMovimentado.Where(x => x.MovimentacaoId == idMovimentacao).ExecuteDelete();
 
         public List<Movimentacao> ListarMovimentacoes()
         {
