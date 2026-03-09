@@ -39,14 +39,14 @@ namespace ControleEstoque.API.Controllers
                 return NotFound(new List<Movimentacao>());
         }
 
-        [HttpPost("BuscarMovimentacaoPorId")]
-        public async Task<IActionResult> BuscarMovimentacaoPorId(int id) 
+        [HttpGet("BuscarMovimentacaoPorId")]
+        public IActionResult BuscarMovimentacaoPorId(int id) 
         {
             var movimentacao = _movimentacao.BuscarMovimentacaoPorId(id);
             if (movimentacao is not null)
                 return Ok(movimentacao);
             else
-                return NotFound("Não existe movimentação com o código buscado.");
+                return NotFound(new Movimentacao());
         }
 
         [HttpPost("ListarItensMovimentados")]
@@ -76,30 +76,30 @@ namespace ControleEstoque.API.Controllers
             {
                 var mov = _movimentacao.AdicionarMovimentacaoInsumo(movimentacao);
                     if (mov)
-                    return Ok("Movimentação adicionada com sucesso!");
+                    return Ok();
                 else
-                    return BadRequest("Houve um problema ao salvar movimentação!");
+                    return BadRequest();
             }
             else
                 return BadRequest("Os dados devem ser preenchidos para serem salvos.");
         }
 
-        [HttpDelete("ExcluirMovimentacao")]
+        [HttpDelete("ExcluirMovimentacao/{id}")]
         public async Task<IActionResult> ExcluirMovimentacao(int id)
         {
             if (_movimentacao.ExcluirMovimentacao(id))
-                return Ok("Movimentacao Excluida com sucesso");
+                return NoContent();
             else
                 return BadRequest("Falha ao excluir movimentação");
         }
 
-        [HttpPut("EditarMovimentacao")]
-        public async Task<IActionResult> EditarMovimentacao(Movimentacao movimentacao)
+        [HttpPut("AtualizarMovimentacao")]
+        public async Task<IActionResult> EditarMovimentacao([FromBody]Movimentacao movimentacao)
         {
             if (_movimentacao.EditarMovimentacao(movimentacao))
-                return Ok("Movimentação salva com sucesso!");
+                return Ok();
             else
-                return BadRequest("Ops! Houve um erro ao salvar Movimentação!");
+                return BadRequest();
         }
     }
 }
